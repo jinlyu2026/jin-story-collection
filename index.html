@@ -662,7 +662,7 @@
     const consentRealInput = document.getElementById('consentRealInput');
     const consentLabel = document.getElementById('consentLabel');
     consentLabel.addEventListener('click', (e) => {
-        if (e.target === consentRealInput) return;
+        e.preventDefault(); // 阻止 label 自动触发 checkbox，避免冲突
         consentRealInput.checked = !consentRealInput.checked;
         consentBox.classList.toggle('checked', consentRealInput.checked);
     });
