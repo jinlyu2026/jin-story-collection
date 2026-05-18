@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 智能教育产品 — 种子轮融资</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F7F6F3;
+            --bg-tertiary: #F1F1EF;
+            --bg-hover: #EFEFEF;
+            --text-primary: #37352F;
+            --text-secondary: #787774;
+            --text-tertiary: #9B9A97;
+            --text-link: #2383E2;
+            --border-color: #E9E9E7;
+            --border-light: #F0F0EE;
+            --accent-blue: #2383E2;
+            --accent-blue-bg: #E7F3FF;
+            --accent-green: #0F7B6C;
+            --accent-green-bg: #DBEDDB;
+            --accent-orange: #D9730D;
+            --accent-orange-bg: #FDECCC;
+            --accent-red: #E03E3E;
+            --accent-red-bg: #FFE2DD;
+            --accent-purple: #6940A5;
+            --accent-purple-bg: #EDE4FF;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
+            --radius-sm: 4px;
+            --radius-md: 6px;
+            --radius-lg: 8px;
+            --max-width: 900px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Cover Hero */
+        .cover {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 80px 24px 64px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(35,131,226,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(105,64,165,0.1) 0%, transparent 40%);
+            animation: coverGlow 15s ease-in-out infinite alternate;
+        }
+        @keyframes coverGlow {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-20px, -10px) rotate(3deg); }
+        }
+        .cover-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+        .cover-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.18);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 28px;
+            color: rgba(255,255,255,0.9);
+        }
+        .cover h1 {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        .cover p.subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            font-weight: 400;
+            margin-bottom: 36px;
+            line-height: 1.6;
+        }
+        .cover-meta {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .cover-meta-item {
+            text-align: center;
+        }
+        .cover-meta-item .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 4px;
+        }
+        .cover-meta-item .value {
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: var(--max-width);
+            margin: -28px auto 0;
+            padding: 0 24px 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Page Card */
+        .page {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            padding: 48px 56px;
+        }
+        @media (max-width: 640px) {
+            .page { padding: 28px 20px; }
+            .cover h1 { font-size: 28px; }
+            .cover { padding: 56px 20px 48px; }
+        }
+
+        /* Section */
+        .section { margin-bottom: 48px; }
+        .section:last-child { margin-bottom: 0; }
+        .section-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-tertiary);
+            margin-bottom: 8px;
+        }
+        .section-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+            line-height: 1.3;
+        }
+        .section-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            line-height: 1.7;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 48px 0;
+        }
+
+        /* Highlight Cards */
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        @media (max-width: 640px) {
+            .highlight-grid { grid-template-columns: 1fr; }
+        }
+        .highlight-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .highlight-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+        .highlight-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 14px;
+        }
+        .highlight-icon.blue { background: var(--accent-blue-bg); }
+        .highlight-icon.green { background: var(--accent-green-bg); }
+        .highlight-icon.purple { background: var(--accent-purple-bg); }
+        .highlight-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+        .highlight-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        @media (max-width: 640px) {
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        .stat-card {
+            text-align: center;
+            padding: 24px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+        }
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+        .stat-value.green { color: var(--accent-green); }
+        .stat-value.blue { color: var(--accent-blue); }
+        .stat-value.purple { color: var(--accent-purple); }
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Table */
+        .table-wrapper {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: var(--bg-secondary);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            padding: 10px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        td {
+            padding: 12px 16px;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-primary);
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--bg-hover); }
+
+        /* Callout */
+        .callout {
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        .callout.blue {
+            background: var(--accent-blue-bg);
+            border-left: 3px solid var(--accent-blue);
+            color: var(--text-primary);
+        }
+        .callout.green {
+            background: var(--accent-green-bg);
+            border-left: 3px solid var(--accent-green);
+            color: var(--text-primary);
+        }
+        .callout.gray {
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* Tag */
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .tag.green { background: var(--accent-green-bg); color: var(--accent-green); }
+        .tag.blue { background: var(--accent-blue-bg); color: var(--accent-blue); }
+        .tag.orange { background: var(--accent-orange-bg); color: var(--accent-orange); }
+        .tag.purple { background: var(--accent-purple-bg); color: var(--accent-purple); }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 28px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 6px;
+            bottom: 6px;
+            width: 2px;
+            background: var(--border-color);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: -24px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            border: 2px solid var(--bg-primary);
+            box-shadow: 0 0 0 2px var(--accent-blue-bg);
+        }
+        .timeline-item.completed .timeline-dot { background: var(--accent-green); box-shadow: 0 0 0 2px var(--accent-green-bg); }
+        .timeline-item.current .timeline-dot { background: var(--accent-orange); box-shadow: 0 0 0 2px var(--accent-orange-bg); }
+        .timeline-date {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        .timeline-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .timeline-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            height: 8px;
+            overflow: hidden;
+            margin-top: 8px;
+            margin-bottom: 20px;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 1.2s ease;
+        }
+        .progress-fill.blue { background: var(--accent-blue); }
+        .progress-fill.green { background: var(--accent-green); }
+        .progress-fill.purple { background: var(--accent-purple); }
+
+        /* Two col */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        @media (max-width: 640px) {
+            .two-col { grid-template-columns: 1fr; }
+        }
+        .col-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+        }
+        .col-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        /* Checklist */
+        .check-list { list-style: none; }
+        .check-list li {
+            padding: 6px 0;
+            font-size: 14px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .check-list li .icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-top: 1px;
+        }
+        .check-list li .icon.green { background: var(--accent-green-bg); color: var(--accent-green); }
+        .check-list li .icon.blue { background: var(--accent-blue-bg); color: var(--accent-blue); }
+
+        /* Team card */
+        .team-card {
+            display: flex;
+            gap: 20px;
+            padding: 24px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            margin-bottom: 20px;
+        }
+        @media (max-width: 640px) {
+            .team-card { flex-direction: column; text-align: center; }
+        }
+        .team-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .team-info h4 { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+        .team-info .role { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; }
+        .team-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+        /* Funding use */
+        .funding-chart {
+            display: flex;
+            height: 36px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .funding-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+            transition: flex 0.8s ease;
+        }
+        .funding-legend {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .funding-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .funding-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+        }
+
+        /* Quote */
+        .quote-block {
+            padding: 24px 28px;
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--accent-blue);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin-bottom: 20px;
+        }
+        .quote-block p {
+            font-size: 16px;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+        .quote-block .source {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        /* Comparison */
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 0;
+            border-bottom: 1px solid var(--border-light);
+            padding: 12px 0;
+            font-size: 14px;
+            align-items: center;
+        }
+        .comparison-row.header {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .comparison-row:last-child { border-bottom: none; }
+        .comparison-row .vs { font-weight: 600; color: var(--text-primary); }
+        .comparison-row .us { color: var(--accent-green); font-weight: 600; }
+        .comparison-row .them { color: var(--text-secondary); }
+
+        /* Footer */
+        .page-footer {
+            text-align: center;
+            padding: 32px 24px;
+            color: var(--text-tertiary);
+            font-size: 12px;
+        }
+        .page-footer a {
+            color: var(--text-link);
+            text-decoration: none;
+        }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Nav dots */
+        .nav-dots {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+        @media (max-width: 900px) {
+            .nav-dots { display: none; }
+        }
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            padding: 0;
+        }
+        .nav-dot:hover, .nav-dot.active {
+            background: var(--accent-blue);
+            transform: scale(1.3);
+        }
+
+        /* Subsection */
+        .subsection { margin-bottom: 28px; }
+        .subsection h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .subsection p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        /* Animate in */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cover -->
+    <div class="cover">
+        <div class="cover-content">
+            <div class="cover-badge">Pre-Seed · 2026</div>
+            <h1>AI 智能教育产品<br>种子轮融资</h1>
+            <p class="subtitle">面向 K-12 及教育场景的 AI 智能应用<br>已完成产品构建与种子用户验证的完整闭环</p>
+            <div class="cover-meta">
+                <div class="cover-meta-item">
+                    <div class="label">阶段</div>
+                    <div class="value">种子验证 → 增长前夜</div>
+                </div>
+                <div class="cover-meta-item">
+                    <div class="label">运营时间</div>
+                    <div class="value">90+ 天</div>
+                </div>
+                <div class="cover-meta-item">
+                    <div class="label">服务可用性</div>
+                    <div class="value">100% 零故障</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nav Dots -->
+    <div class="nav-dots" id="navDots">
+        <button class="nav-dot active" data-section="summary" title="执行摘要"></button>
+        <button class="nav-dot" data-section="market" title="市场机会"></button>
+        <button class="nav-dot" data-section="product" title="产品方案"></button>
+        <button class="nav-dot" data-section="traction" title="数据验证"></button>
+        <button class="nav-dot" data-section="model" title="商业模式"></button>
+        <button class="nav-dot" data-section="moat" title="竞争壁垒"></button>
+        <button class="nav-dot" data-section="team" title="团队"></button>
+        <button class="nav-dot" data-section="funding" title="融资计划"></button>
+        <button class="nav-dot" data-section="vision" title="愿景"></button>
+    </div>
+
+    <!-- Main -->
+    <div class="container">
+        <div class="page">
+
+            <!-- Executive Summary -->
+            <div class="section fade-in" id="summary">
+                <div class="section-label">Executive Summary</div>
+                <div class="section-title">执行摘要</div>
+                <div class="section-desc">产品已跑通「上线 → 验证 → 优化 → 稳定运营」完整闭环，技术风险已清零，下一步关键是将种子势能转化为增长动能。</div>
+
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <div class="highlight-icon blue">&#x1F52C;</div>
+                        <h4>技术就绪度极高</h4>
+                        <p>上线 3 个月零宕机，100% 健康检查通过，生产级稳定性已验证</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon green">&#x1F4C8;</div>
+                        <h4>用户粘性已验证</h4>
+                        <p>种子用户持续复用 3 个月，多用户并发真实，PMF 初步验证</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon purple">&#x1F4B0;</div>
+                        <h4>成本结构极致</h4>
+                        <p>Cloud Run 无服务器 + 内存优化 60%，边际成本趋近于零</p>
+                    </div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-value green">100%</div>
+                        <div class="stat-label">服务可用性</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value blue">90+</div>
+                        <div class="stat-label">稳定运行天数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value purple">5~10</div>
+                        <div class="stat-label">峰值并发用户</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value green">0</div>
+                        <div class="stat-label">故障次数</div>
+                    </div>
+                </div>
+
+                <div class="callout blue">
+                    <strong>核心投资逻辑：</strong>产品已验证、技术已就绪、用户已认可。当前不是"有没有人用"的问题，而是"什么时候让更多人用"的问题。投资人投入的每一分钱都将用于增长，而非修 bug 或扛服务器。
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Market -->
+            <div class="section fade-in" id="market">
+                <div class="section-label">Market Opportunity</div>
+                <div class="section-title">市场机会</div>
+                <div class="section-desc">AI + 教育 = 十万亿级市场的黄金交汇点。技术拐点已过，政策东风已至，但优质产品极度稀缺。</div>
+
+                <div class="subsection">
+                    <h3>为什么是现在？</h3>
+                    <div class="two-col">
+                        <div class="col-card">
+                            <h4>AI 技术成熟度</h4>
+                            <div class="progress-bar"><div class="progress-fill blue" style="width: 85%"></div></div>
+                            <p style="font-size:13px; color: var(--text-secondary); margin-bottom:0;">大模型能力已可用，从实验室走向产品化</p>
+                        </div>
+                        <div class="col-card">
+                            <h4>K-12 教育数字化</h4>
+                            <div class="progress-bar"><div class="progress-fill green" style="width: 70%"></div></div>
+                            <p style="font-size:13px; color: var(--text-secondary); margin-bottom:0;">政策 + 需求双轮驱动，渗透率快速提升</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>目标市场</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>市场层级</th><th>描述</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>TAM</strong>（总可触达市场）</td><td>全球 AI 教育应用市场</td></tr>
+                                <tr><td><strong>SAM</strong>（可服务市场）</td><td>中国 K-12 + 教师 AI 赋能工具市场</td></tr>
+                                <tr><td><strong>SOM</strong>（可获得市场）</td><td>上海及长三角地区学校、教育机构</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>核心痛点</h3>
+                    <div class="callout gray">
+                        <strong>教师端</strong>：备课负担重、个性化教学难以落地<br>
+                        <strong>学生端</strong>：标准化内容无法匹配个体差异<br>
+                        <strong>机构端</strong>：缺乏真正融入教学流程的 AI 产品和运营经验
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Product -->
+            <div class="section fade-in" id="product">
+                <div class="section-label">Product & Solution</div>
+                <div class="section-title">产品与解决方案</div>
+                <div class="section-desc">结合复旦学术背景 + 华盛顿大学 MSW 临床训练 + 600+ 小时心理咨询经验，打造真正懂教育、懂学生、懂教师的 AI 产品。</div>
+
+                <div class="two-col">
+                    <div class="col-card">
+                        <h4>技术架构</h4>
+                        <ul class="check-list">
+                            <li><span class="icon green">&#10003;</span> Google AI Studio 驱动</li>
+                            <li><span class="icon green">&#10003;</span> Cloud Run 无服务器部署</li>
+                            <li><span class="icon green">&#10003;</span> 自动扩缩容 (0~3 实例)</li>
+                            <li><span class="icon green">&#10003;</span> Web 应用，多端支持</li>
+                        </ul>
+                    </div>
+                    <div class="col-card">
+                        <h4>产品价值</h4>
+                        <ul class="check-list">
+                            <li><span class="icon blue">&#10003;</span> 显著降低教师工作负担</li>
+                            <li><span class="icon blue">&#10003;</span> 输出质量超出预期</li>
+                            <li><span class="icon blue">&#10003;</span> 界面简洁，学习成本极低</li>
+                            <li><span class="icon blue">&#10003;</span> 已成为用户的常用工具</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="quote-block">
+                    <p>「非常好用。」</p>
+                    <div class="source">— 种子用户反馈（教育行业从业者）</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>数据验证的产品价值</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>指标</th><th>数据</th><th>意义</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>运行时长</td><td>90+ 天</td><td>产品已稳定上线</td></tr>
+                                <tr><td>服务可用性</td><td><span class="tag green">100% 零故障</span></td><td>生产级可靠性</td></tr>
+                                <tr><td>用户粘性</td><td>持续复用（3月→5月）</td><td>PMF 初步验证</td></tr>
+                                <tr><td>并发用户</td><td>峰值 5~10 人</td><td>多用户真实使用</td></tr>
+                                <tr><td>成本优化</td><td>内存降低 60%+</td><td>成本效率极高</td></tr>
+                                <tr><td>基础设施成本</td><td>Min:0 = 零闲置成本</td><td>极致成本结构</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Traction -->
+            <div class="section fade-in" id="traction">
+                <div class="section-label">Traction</div>
+                <div class="section-title">核心数据验证</div>
+                <div class="section-desc">3 个月完整运营数据清晰呈现：从上线到验证，从优化到稳定，产品已完成 0→1 的关键跨越。</div>
+
+                <div class="subsection">
+                    <h3>运营时间线</h3>
+                    <div class="timeline">
+                        <div class="timeline-item completed">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">2026 年 2 月下旬</div>
+                            <div class="timeline-title">产品上线</div>
+                            <div class="timeline-desc">AI Studio → Cloud Run 一键部署，从原型到上线无缝衔接</div>
+                        </div>
+                        <div class="timeline-item completed">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">2026 年 3 月上旬</div>
+                            <div class="timeline-title">种子用户涌入 · 第一波验证高潮</div>
+                            <div class="timeline-desc">请求量达全周期峰值，多位用户同时活跃，并发逼近 10</div>
+                        </div>
+                        <div class="timeline-item completed">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">2026 年 3 月下旬</div>
+                            <div class="timeline-title">性能优化迭代</div>
+                            <div class="timeline-desc">内存占用降低 60%+，成本结构大幅优化</div>
+                        </div>
+                        <div class="timeline-item completed">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">2026 年 4~5 月</div>
+                            <div class="timeline-title">稳定运营 · 持续增长</div>
+                            <div class="timeline-desc">活跃脉冲频率加密，用户从"测试"转向"持续复用"</div>
+                        </div>
+                        <div class="timeline-item current">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">下一步</div>
+                            <div class="timeline-title">有限开放 · 启动增长飞轮</div>
+                            <div class="timeline-desc">基于种子验证数据，开放注册 / 邀请码扩散</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>技术质量远超同类早期产品</h3>
+                    <div class="comparison-row header">
+                        <span>对比维度</span>
+                        <span>本产品</span>
+                        <span>行业平均</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="vs">上线首季度故障</span>
+                        <span class="us">0 次</span>
+                        <span class="them">3~8 次</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="vs">基础设施月成本</span>
+                        <span class="us">极优 (Min:0)</span>
+                        <span class="them">$500~$2000</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="vs">性能优化周期</span>
+                        <span class="us">3 个月</span>
+                        <span class="them">6~12 个月</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="vs">PMF 验证状态</span>
+                        <span class="us">已完成</span>
+                        <span class="them">尚未找到</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Business Model -->
+            <div class="section fade-in" id="model">
+                <div class="section-label">Business Model</div>
+                <div class="section-title">商业模式</div>
+                <div class="section-desc">Freemium + B2B SaaS 双轨收入模型。极致的成本结构意味着用户增长 10 倍，基础设施成本几乎不增长。</div>
+
+                <div class="subsection">
+                    <h3>收入模型</h3>
+                    <div class="highlight-grid">
+                        <div class="highlight-card">
+                            <div class="highlight-icon blue">&#x1F464;</div>
+                            <h4>Freemium（个人）</h4>
+                            <p>免费版：基础功能 + 限额<br>付费版：无限使用 + 高级功能</p>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="highlight-icon green">&#x1F3EB;</div>
+                            <h4>B2B SaaS（机构）</h4>
+                            <p>按年订阅：学校/机构端<br>定制化服务：另行报价</p>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="highlight-icon purple">&#x2728;</div>
+                            <h4>增值服务</h4>
+                            <p>教师培训 / AI 赋能工作坊<br>定制化课程设计服务</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>单位经济模型</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>指标</th><th>说明</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>边际成本</strong></td><td>&asymp; &yen;0（用户增量几乎不增加基础设施成本）</td></tr>
+                                <tr><td><strong>获客成本 (CAC)</strong></td><td>种子用户口碑驱动，预期显著低于行业平均</td></tr>
+                                <tr><td><strong>生命周期价值 (LTV)</strong></td><td>教育产品天然高留存，LTV/CAC 预期 > 3</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="callout green">
+                    <strong>核心优势：</strong>Cloud Run 无服务器架构 + 极低资源占用 = 用户增长 10 倍、100 倍，基础设施成本几乎不增长。这意味着规模化过程中的利润率将远超行业平均。
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Moat -->
+            <div class="section fade-in" id="moat">
+                <div class="section-label">Competitive Moat</div>
+                <div class="section-title">竞争壁垒</div>
+                <div class="section-desc">三层壁垒叠加，构建难以复制的产品护城河。</div>
+
+                <div class="two-col">
+                    <div class="col-card">
+                        <h4>&#x1F527; 技术壁垒</h4>
+                        <ul class="check-list">
+                            <li><span class="icon green">&#10003;</span> 极低技术债务：全托管零运维</li>
+                            <li><span class="icon green">&#10003;</span> 100% 零故障，3 个月生产级运行</li>
+                            <li><span class="icon green">&#10003;</span> Min:0 + 内存优化 60%，边际成本 &asymp; 0</li>
+                        </ul>
+                    </div>
+                    <div class="col-card">
+                        <h4>&#x1F393; 专业壁垒</h4>
+                        <ul class="check-list">
+                            <li><span class="icon blue">&#10003;</span> 复旦大学教师 + 华盛顿大学 MSW</li>
+                            <li><span class="icon blue">&#10003;</span> 600+ 小时临床心理咨询经验</li>
+                            <li><span class="icon blue">&#10003;</span> 10 年+ 教学经验，真正懂教育</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout gray">
+                    <strong>先发壁垒：</strong>当前 AI 教育工具市场高度碎片化，尚无绝对领头羊。本产品已跑通「上线→验证→优化→稳定」闭环，比竞品快 6~12 个月。专业壁垒（教育经验 + 心理咨询背景）是纯技术团队无法复制的核心差异。
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Team -->
+            <div class="section fade-in" id="team">
+                <div class="section-label">Team</div>
+                <div class="section-title">团队</div>
+                <div class="section-desc">创始人兼具学术深度与一线教育经验，是产品「懂教育」的核心保障。</div>
+
+                <div class="team-card">
+                    <div class="team-avatar">JL</div>
+                    <div class="team-info">
+                        <h4>Jin Lyu</h4>
+                        <div class="role">创始人 / 产品负责人</div>
+                        <div class="team-tags">
+                            <span class="tag blue">复旦大学教师</span>
+                            <span class="tag purple">UW MSW</span>
+                            <span class="tag green">10年+ 教学经验</span>
+                            <span class="tag orange">600h+ 临床心理</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <div class="col-card">
+                        <h4>教育背景</h4>
+                        <ul class="check-list">
+                            <li><span class="icon green">&#10003;</span> 复旦大学 管理学硕士</li>
+                            <li><span class="icon green">&#10003;</span> 华盛顿大学 社会工作硕士 (MSW)</li>
+                            <li><span class="icon green">&#10003;</span> 华盛顿大学 社会工作预科 (MSP)</li>
+                            <li><span class="icon green">&#10003;</span> 复旦大学 环境科学学士</li>
+                        </ul>
+                    </div>
+                    <div class="col-card">
+                        <h4>当前实践</h4>
+                        <ul class="check-list">
+                            <li><span class="icon blue">&#10003;</span> 复旦大学 教师</li>
+                            <li><span class="icon blue">&#10003;</span> K-12 / AI 教育顾问</li>
+                            <li><span class="icon blue">&#10003;</span> 600+ 小时临床心理咨询</li>
+                            <li><span class="icon blue">&#10003;</span> 上海市工商外国语学校「AI 赋能」课程组织者</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout blue">
+                    <strong>本轮融资后重点招募：</strong>全栈工程师 &times; 1~2（远程/兼职亦可）、增长运营 &times; 1
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Funding -->
+            <div class="section fade-in" id="funding">
+                <div class="section-label">The Ask</div>
+                <div class="section-title">融资计划</div>
+                <div class="section-desc">种子轮 / Pre-Seed 融资，资金将聚焦增长，而非补技术债。</div>
+
+                <div class="stats-row" style="margin-bottom: 24px;">
+                    <div class="stat-card">
+                        <div class="stat-value blue">种子轮</div>
+                        <div class="stat-label">融资轮次</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value purple">50%</div>
+                        <div class="stat-label">投入增长</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value green">30%</div>
+                        <div class="stat-label">投入团队</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="font-size: 24px;">20%</div>
+                        <div class="stat-label">运营合规</div>
+                    </div>
+                </div>
+
+                <div class="funding-chart">
+                    <div class="funding-segment" style="flex: 50; background: var(--accent-blue);">增长 50%</div>
+                    <div class="funding-segment" style="flex: 30; background: var(--accent-purple);">团队 30%</div>
+                    <div class="funding-segment" style="flex: 20; background: var(--accent-green);">运营 20%</div>
+                </div>
+                <div class="funding-legend" style="margin-bottom: 24px;">
+                    <div class="funding-legend-item"><div class="funding-dot" style="background: var(--accent-blue);"></div>增长与获客：产品上线 + 品牌建设 + 定向推广</div>
+                    <div class="funding-legend-item"><div class="funding-dot" style="background: var(--accent-purple);"></div>团队扩充：全栈工程师 + 增长运营</div>
+                    <div class="funding-legend-item"><div class="funding-dot" style="background: var(--accent-green);"></div>运营合规：服务器 + 法律 + 备用金</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>风险与应对</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>风险</th><th>应对策略</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>增长不及预期</td><td>PMF 已验证，风险可控；50% 资金专门用于增长</td></tr>
+                                <tr><td>竞品快速跟进</td><td>专业壁垒（教育经验 + 心理咨询背景）难以复制</td></tr>
+                                <tr><td>AI 模型成本上升</td><td>架构支持切换多家模型供应商，成本可控</td></tr>
+                                <tr><td>政策监管风险</td><td>教育 + AI 均为国家政策鼓励方向，风险低</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Vision -->
+            <div class="section fade-in" id="vision">
+                <div class="section-label">Vision & Exit</div>
+                <div class="section-title">愿景与退出</div>
+                <div class="section-desc">成为 K-12 AI 教育领域最受教师和学生信赖的工具品牌。</div>
+
+                <div class="subsection">
+                    <h3>三年里程碑</h3>
+                    <div class="timeline">
+                        <div class="timeline-item current">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">Year 1</div>
+                            <div class="timeline-title">PMF 验证完成</div>
+                            <div class="timeline-desc">上海地区标杆案例 &times; 10，种子用户 → 公测用户</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">Year 2</div>
+                            <div class="timeline-title">长三角覆盖 + 盈亏平衡</div>
+                            <div class="timeline-desc">教育机构合作 + 长三角区域渗透</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">Year 3</div>
+                            <div class="timeline-title">全国布局 + 探索出海</div>
+                            <div class="timeline-desc">从工具升级为平台，年营收目标达成</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>退出路径</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>路径</th><th>时间框架</th><th>潜在方向</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong><span class="tag green">战略收购</span></strong></td>
+                                    <td>Year 3~5</td>
+                                    <td>大型教育集团 / 科技公司教育板块</td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span class="tag blue">独立 IPO</span></strong></td>
+                                    <td>Year 5+</td>
+                                    <td>科创板 / 港交所</td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span class="tag purple">持续分红</span></strong></td>
+                                    <td>Year 2+</td>
+                                    <td>高利润 SaaS 业务持续运营</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="page-footer">
+            基于产品运营数据自动生成 · 2026.05.18<br>
+            更多财务预测模型和详细市场分析可另行提供
+        </div>
+    </div>
+
+    <script>
+        // Intersection Observer for fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Nav dots
+        const sections = ['summary', 'market', 'product', 'traction', 'model', 'moat', 'team', 'funding', 'vision'];
+        const dots = document.querySelectorAll('.nav-dot');
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const sectionId = dot.dataset.section;
+                document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    dots.forEach(d => d.classList.remove('active'));
+                    const activeDot = document.querySelector(`.nav-dot[data-section="${entry.target.id}"]`);
+                    if (activeDot) activeDot.classList.add('active');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) navObserver.observe(el);
+        });
+
+        // Animate progress bars on scroll
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const fill = entry.target.querySelector('.progress-fill');
+                    if (fill) {
+                        const width = fill.style.width;
+                        fill.style.width = '0%';
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => {
+                                fill.style.width = width;
+                            });
+                        });
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.progress-bar').forEach(bar => progressObserver.observe(bar));
+    </script>
+</body>
+</html>
