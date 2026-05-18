@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>来自 Jin 的一封信 — 我想听听你的故事</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 腾讯云开发 SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@cloudbase/js-sdk@2.7.16/dist/cloudbase.full.min.js"></script>
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -345,7 +347,6 @@
             display: none;
         }
         .submit-btn.loading .spinner { display: inline-block; }
-        .submit-btn.loading .btn-text::after { content: '中...'; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         /* Success state */
@@ -423,35 +424,13 @@
             color: var(--text-tertiary);
         }
 
-        /* Config notice (shown when not configured) */
-        .config-notice {
-            display: none;
-            margin-top: 16px;
-            padding: 16px;
-            background: var(--accent-orange-bg);
-            border: 1px solid #FCD34D;
-            border-radius: var(--radius-lg);
-            font-size: 13px;
-            color: #92400E;
-            line-height: 1.7;
-            text-align: left;
-        }
-        .config-notice.show { display: block; }
-        .config-notice code {
-            background: rgba(255,255,255,0.6);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'SF Mono', monospace;
-            font-size: 12px;
-        }
-
         /* Print-friendly */
         @media print {
             body { background: #fff; }
             .page { padding: 20px; }
             .letter { box-shadow: none; border: 1px solid #ddd; }
             textarea, input[type="text"] { border: 1px solid #ccc; }
-            .submit-area, .config-notice { display: none; }
+            .submit-area { display: none; }
         }
     </style>
 </head>
@@ -592,10 +571,6 @@
                     <span class="btn-text">提交反馈</span>
                 </button>
                 <div class="error-msg" id="errorMsg"></div>
-                <div class="config-notice" id="configNotice">
-                    <strong>提示：</strong>表单尚未配置后端。请在代码中将 <code>FORM_ENDPOINT</code> 替换为你的表单接收地址。<br>
-                    推荐方案：Formspree（免费，每月50条）— 访问 <code>formspree.io</code> 注册获取 endpoint。
-                </div>
             </div>
 
         </form>
@@ -625,26 +600,45 @@
 </div>
 
 <script>
-    // ======== CONFIGURATION ========
-    // 在这里填入你的表单接收端点
-    // 推荐方案：
-    // 1. Formspree（最简单）: https://formspree.io/f/YOUR_FORM_ID
-    // 2. Getform: https://getform.io/f/YOUR_FORM_ID
-    // 3. 自建 API: https://your-api.com/submit
-    const FORM_ENDPOINT = '';  // ← 填入你的 endpoint
+    // ======== 腾讯云开发配置 ========
+    // 环境 ID（你从腾讯云控制台获取）
+    const TCB_ENV_ID = 'jin-d0gcxzg8k3f764806';
     // =================================
 
+    // DOM elements
     const form = document.getElementById('storyForm');
     const submitBtn = document.getElementById('submitBtn');
     const errorMsg = document.getElementById('errorMsg');
-    const configNotice = document.getElementById('configNotice');
     const successState = document.getElementById('successState');
     const submitTime = document.getElementById('submitTime');
 
-    // Show config notice if endpoint not set
-    if (!FORM_ENDPOINT) {
-        configNotice.classList.add('show');
+    // CloudBase state
+    let db = null;
+    let isLoggedIn = false;
+
+    // Initialize CloudBase on page load
+    async function initCloudBase() {
+        try {
+            const app = cloudbase.init({
+                env: TCB_ENV_ID
+            });
+            const auth = app.auth({
+                persistence: 'local'
+            });
+            const loginState = await auth.getLoginState();
+            if (!loginState) {
+                await auth.anonymousAuthProvider().signIn();
+            }
+            db = app.database();
+            isLoggedIn = true;
+            console.log('CloudBase initialized successfully');
+        } catch (e) {
+            console.error('CloudBase init failed:', e);
+        }
     }
+
+    // Start init (non-blocking)
+    initCloudBase();
 
     // Stars
     const stars = document.querySelectorAll('#stars .star');
@@ -668,7 +662,6 @@
     const consentRealInput = document.getElementById('consentRealInput');
     const consentLabel = document.getElementById('consentLabel');
     consentLabel.addEventListener('click', (e) => {
-        // Don't toggle if clicking the real checkbox (it toggles itself)
         if (e.target === consentRealInput) return;
         consentRealInput.checked = !consentRealInput.checked;
         consentBox.classList.toggle('checked', consentRealInput.checked);
@@ -688,17 +681,9 @@
             return;
         }
 
-        if (!FORM_ENDPOINT) {
-            showError('表单尚未配置接收端点。请先按照上方提示配置后端。');
-            configNotice.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            return;
-        }
-
         // Collect data
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-
-        // Add metadata
         data.submitted_at = new Date().toISOString();
         data.user_agent = navigator.userAgent;
         data.page_url = window.location.href;
@@ -708,29 +693,31 @@
         hideError();
 
         try {
-            const response = await fetch(FORM_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                // Success
-                form.classList.add('hidden');
-                successState.classList.add('show');
-                submitTime.textContent = new Date().toLocaleString('zh-CN');
-                successState.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-                const text = await response.text();
-                showError('提交失败（' + response.status + '）。请检查网络连接后重试，或直接联系 Jin。');
-                console.error('Submit error:', text);
+            // Ensure DB is ready
+            if (!isLoggedIn || !db) {
+                await initCloudBase();
             }
+            if (!db) {
+                throw new Error('数据库连接失败，请检查网络后刷新页面重试');
+            }
+
+            // Write to CloudBase database
+            const result = await db.collection('StoryCollection').add({ data });
+            console.log('Submit success:', result);
+
+            // Show success
+            form.classList.add('hidden');
+            successState.classList.add('show');
+            submitTime.textContent = new Date().toLocaleString('zh-CN');
+            successState.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
         } catch (err) {
-            showError('提交失败，可能是网络问题。请稍后重试，或直接联系 Jin。');
             console.error('Submit error:', err);
+            if (err.message && err.message.includes('permission')) {
+                showError('提交被拒绝，可能是数据库权限设置问题。请联系 Jin 处理。');
+            } else {
+                showError('提交失败：' + (err.message || '请检查网络连接后重试'));
+            }
         } finally {
             setLoading(false);
         }
