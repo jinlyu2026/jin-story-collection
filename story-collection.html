@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>来自 Jin 的一封信 — 我想听听你的故事</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F7F6F3;
+            --bg-tertiary: #F1F1EF;
+            --bg-hover: #EFEFEF;
+            --text-primary: #37352F;
+            --text-secondary: #787774;
+            --text-tertiary: #9B9A97;
+            --border-color: #E9E9E7;
+            --border-light: #F0F0EE;
+            --accent-green: #0F7B6C;
+            --accent-green-bg: #DBEDDB;
+            --accent-blue: #2383E2;
+            --accent-blue-bg: #E7F3FF;
+            --accent-orange: #D9730D;
+            --accent-orange-bg: #FDECCC;
+            --accent-purple: #6940A5;
+            --accent-purple-bg: #EDE4FF;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
+            --radius-sm: 4px;
+            --radius-md: 6px;
+            --radius-lg: 8px;
+            --radius-xl: 12px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+
+        /* Letter */
+        .letter {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            padding: 56px 48px;
+        }
+
+        @media (max-width: 640px) {
+            .letter { padding: 32px 20px; }
+        }
+
+        /* Header */
+        .letter-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .letter-date {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-bottom: 20px;
+            letter-spacing: 0.3px;
+        }
+        .letter-greeting {
+            font-family: 'Noto Serif SC', 'Georgia', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .letter-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Body text */
+        .letter-body {
+            margin-bottom: 40px;
+        }
+        .letter-body p {
+            font-size: 15px;
+            color: var(--text-primary);
+            line-height: 1.85;
+            margin-bottom: 16px;
+        }
+        .letter-body p:last-child { margin-bottom: 0; }
+        .letter-body .highlight {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+        .letter-body .warm {
+            font-family: 'Noto Serif SC', 'Georgia', serif;
+            font-size: 17px;
+            color: var(--text-primary);
+            display: block;
+            margin: 20px 0;
+            padding: 20px 24px;
+            background: linear-gradient(135deg, #F7F6F3, #F1F1EF);
+            border-radius: var(--radius-lg);
+            border-left: 3px solid var(--accent-green);
+            font-weight: 400;
+        }
+
+        /* Section divider */
+        .letter-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            margin: 40px 0;
+        }
+
+        /* Questions */
+        .question-block {
+            margin-bottom: 32px;
+        }
+        .question-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .question-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+        .question-hint {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        /* Textarea */
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 14px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            resize: vertical;
+            line-height: 1.7;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        textarea:focus {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(15,123,108,0.1);
+            background: var(--bg-primary);
+        }
+        textarea::placeholder {
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+        textarea.large { min-height: 160px; }
+
+        /* Short answer */
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input[type="text"]:focus {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(15,123,108,0.1);
+            background: var(--bg-primary);
+        }
+        input[type="text"]::placeholder {
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        /* Stars rating */
+        .stars {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .star {
+            width: 40px; height: 40px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.15s;
+            user-select: none;
+        }
+        .star:hover {
+            border-color: #FBBF24;
+            background: #FEF3C7;
+            transform: scale(1.1);
+        }
+        .star.active {
+            border-color: #F59E0B;
+            background: #FDE68A;
+            transform: scale(1.05);
+        }
+        .star-label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            min-height: 18px;
+        }
+
+        /* Optional tag */
+        .optional-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            background: var(--bg-tertiary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        /* Consent */
+        .consent-block {
+            margin: 40px 0 24px;
+            padding: 20px 24px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+        }
+        .consent-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .consent-checkbox {
+            width: 20px; height: 20px;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--border-color);
+            background: var(--bg-primary);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s;
+            margin-top: 1px;
+        }
+        .consent-checkbox.checked {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+        .consent-checkbox.checked::after {
+            content: '';
+            width: 5px; height: 9px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            margin-top: -2px;
+        }
+        .consent-real-input {
+            position: absolute;
+            opacity: 0;
+            width: 0; height: 0;
+        }
+
+        /* Submit button */
+        .submit-area {
+            margin-top: 32px;
+            text-align: center;
+        }
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            max-width: 320px;
+            padding: 16px 32px;
+            background: var(--accent-green);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(15,123,108,0.25);
+        }
+        .submit-btn:hover:not(:disabled) {
+            background: #0D6B5E;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(15,123,108,0.3);
+        }
+        .submit-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .submit-btn .spinner {
+            width: 18px; height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+        .submit-btn.loading .spinner { display: inline-block; }
+        .submit-btn.loading .btn-text::after { content: '中...'; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Success state */
+        .success-state {
+            display: none;
+            text-align: center;
+            padding: 48px 32px;
+        }
+        .success-state.show { display: block; }
+        .success-icon {
+            width: 64px; height: 64px;
+            background: var(--accent-green-bg);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 24px;
+        }
+        .success-title {
+            font-family: 'Noto Serif SC', 'Georgia', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        .success-message {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+        .success-detail {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            background: var(--bg-secondary);
+            padding: 16px 20px;
+            border-radius: var(--radius-lg);
+            display: inline-block;
+            text-align: left;
+            max-width: 100%;
+        }
+
+        /* Error state */
+        .error-msg {
+            display: none;
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            border-radius: var(--radius-lg);
+            color: #DC2626;
+            font-size: 14px;
+        }
+        .error-msg.show { display: block; }
+
+        /* Form hidden */
+        .form-content.hidden { display: none; }
+
+        /* Footer */
+        .letter-footer {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-light);
+        }
+        .letter-footer .sign {
+            font-family: 'Noto Serif SC', 'Georgia', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .letter-footer .title {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        /* Config notice (shown when not configured) */
+        .config-notice {
+            display: none;
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--accent-orange-bg);
+            border: 1px solid #FCD34D;
+            border-radius: var(--radius-lg);
+            font-size: 13px;
+            color: #92400E;
+            line-height: 1.7;
+            text-align: left;
+        }
+        .config-notice.show { display: block; }
+        .config-notice code {
+            background: rgba(255,255,255,0.6);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'SF Mono', monospace;
+            font-size: 12px;
+        }
+
+        /* Print-friendly */
+        @media print {
+            body { background: #fff; }
+            .page { padding: 20px; }
+            .letter { box-shadow: none; border: 1px solid #ddd; }
+            textarea, input[type="text"] { border: 1px solid #ccc; }
+            .submit-area, .config-notice { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <div class="letter">
+
+        <!-- Header -->
+        <div class="letter-header">
+            <div class="letter-date">2026 年 5 月</div>
+            <div class="letter-greeting">嗨，</div>
+            <div class="letter-subtitle">
+                你是我最早的用户之一。<br>
+                这封信，是想认真听听你的故事。
+            </div>
+        </div>
+
+        <!-- Letter body -->
+        <div class="letter-body">
+            <p>
+                几个月前，我把一个还在早期阶段的产品分享给了几个朋友。没有宣传，没有包装，只是想看看它在真实场景里能不能帮到人。
+            </p>
+            <p>
+                让我没想到的是，你一直用到了现在。在我心里，你不只是用户——你是这个产品的<span class="highlight">共同见证者</span>。
+            </p>
+
+            <span class="warm">
+                现在这个产品走到了一个关键节点，我需要向别人讲述「它为什么好」。但最懂这个的人不是我，是你。
+            </span>
+
+            <p>
+                下面这些问题，没有标准答案，也不用写得很正式。想到什么写什么，一两句话也好，一段长文也好——<span class="highlight">越真实越好，越具体越好</span>。
+            </p>
+            <p>
+                填完直接点击下方的提交按钮即可，你的每一条反馈对我来说都非常珍贵。
+            </p>
+        </div>
+
+        <div class="letter-divider"></div>
+
+        <!-- FORM START -->
+        <form id="storyForm" class="form-content">
+
+            <!-- Basic Info -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px;">
+                <div>
+                    <div style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">你的称呼 <span style="color: var(--text-tertiary); font-weight: 400;">（选填）</span></div>
+                    <input type="text" name="nickname" placeholder="怎么称呼你都可以">
+                </div>
+                <div>
+                    <div style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">你的职业/身份 <span style="color: var(--text-tertiary); font-weight: 400;">（选填）</span></div>
+                    <input type="text" name="role" placeholder="比如：高中数学老师、教研员...">
+                </div>
+            </div>
+
+            <div class="letter-divider"></div>
+
+            <!-- Q1 -->
+            <div class="question-block">
+                <div class="question-num">1</div>
+                <div class="question-title">你是怎么开始用这个产品的？</div>
+                <div class="question-hint">还记得第一次打开它时的场景吗？是什么吸引了你？</div>
+                <textarea name="q1_origin" placeholder="比如：'Jin 发给我的时候我正好在备课，抱着试试的心态打开...'"></textarea>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-block">
+                <div class="question-num">2</div>
+                <div class="question-title">你通常在什么场景下使用它？</div>
+                <div class="question-hint">具体一点——备课？上课？写材料？日常灵感？频率大概怎样？</div>
+                <textarea name="q2_scenario" placeholder="比如：'我每天早上到办公室第一件事就是打开它，帮我生成当天的...'"></textarea>
+            </div>
+
+            <!-- Q3 -->
+            <div class="question-block">
+                <div class="question-num">3</div>
+                <div class="question-title">它帮你解决了什么问题？或者带来了什么改变？</div>
+                <div class="question-hint">最好能举一个具体的例子——某个时刻、某件事，它帮了大忙。</div>
+                <textarea name="q3_impact" class="large" placeholder="比如：'有一次我需要在一天之内准备三个不同年级的教案，以前要加班到很晚，那次用它两个小时就搞定了...'"></textarea>
+            </div>
+
+            <!-- Q4 -->
+            <div class="question-block">
+                <div class="question-num">4</div>
+                <div class="question-title">如果用一个词/一句话形容这个产品，你会怎么说？</div>
+                <div class="question-hint">最直觉的感受，不用想太久。</div>
+                <textarea name="q4_quote" placeholder="一个词、一句话、一段感想都可以"></textarea>
+            </div>
+
+            <!-- Q5 -->
+            <div class="question-block">
+                <div class="question-num">5</div>
+                <div class="question-title">你会推荐给同事或朋友吗？</div>
+                <div class="question-hint">如果会，你觉得他们会最需要它的哪一点？</div>
+                <textarea name="q5_recommend" placeholder="比如：'我已经推荐给同办公室的两位老师了，她们都说...'"></textarea>
+            </div>
+
+            <!-- Q6 - Star rating -->
+            <div class="question-block">
+                <div class="question-num">6</div>
+                <div class="question-title">整体满意度 <span class="optional-tag">打个分</span></div>
+                <div class="question-hint">点击星星评分，仅用于我自己了解，不会公开</div>
+                <div class="stars" id="stars">
+                    <div class="star" data-val="1">&#9733;</div>
+                    <div class="star" data-val="2">&#9733;</div>
+                    <div class="star" data-val="3">&#9733;</div>
+                    <div class="star" data-val="4">&#9733;</div>
+                    <div class="star" data-val="5">&#9733;</div>
+                </div>
+                <div class="star-label" id="starLabel"></div>
+                <input type="hidden" name="rating" id="ratingInput" value="">
+            </div>
+
+            <!-- Q7 - Open -->
+            <div class="question-block">
+                <div class="question-num" style="background: var(--accent-purple);">+</div>
+                <div class="question-title">还有什么想说的？</div>
+                <div class="question-hint">功能建议、吐槽、期望、鼓励……任何你想说的都可以。</div>
+                <textarea name="q7_extra" class="large" placeholder="自由发挥..."></textarea>
+            </div>
+
+            <div class="letter-divider"></div>
+
+            <!-- Consent -->
+            <div class="consent-block">
+                <label class="consent-label" id="consentLabel">
+                    <div class="consent-checkbox" id="consentBox"></div>
+                    <input type="checkbox" name="consent" id="consentRealInput" class="consent-real-input" value="yes">
+                    <span>我同意 Jin 在向投资人或合作伙伴介绍产品时，<strong>引用我的反馈内容</strong>（可以隐去真实姓名）。我理解这对这个产品的成长很重要。</span>
+                </label>
+            </div>
+
+            <!-- Submit -->
+            <div class="submit-area">
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="spinner"></span>
+                    <span class="btn-text">提交反馈</span>
+                </button>
+                <div class="error-msg" id="errorMsg"></div>
+                <div class="config-notice" id="configNotice">
+                    <strong>提示：</strong>表单尚未配置后端。请在代码中将 <code>FORM_ENDPOINT</code> 替换为你的表单接收地址。<br>
+                    推荐方案：Formspree（免费，每月50条）— 访问 <code>formspree.io</code> 注册获取 endpoint。
+                </div>
+            </div>
+
+        </form>
+        <!-- FORM END -->
+
+        <!-- Success state -->
+        <div class="success-state" id="successState">
+            <div class="success-icon">&#10003;</div>
+            <div class="success-title">收到，谢谢。</div>
+            <div class="success-message">
+                你的故事已经安全送达。<br>
+                这些真实的反馈是这个产品最有价值的一部分。
+            </div>
+            <div class="success-detail">
+                提交时间：<span id="submitTime"></span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="letter-footer">
+            <div class="sign">谢谢，</div>
+            <div class="sign">Jin</div>
+            <div class="title" style="margin-top: 8px;">复旦大学 · 华盛顿大学 MSW</div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // ======== CONFIGURATION ========
+    // 在这里填入你的表单接收端点
+    // 推荐方案：
+    // 1. Formspree（最简单）: https://formspree.io/f/YOUR_FORM_ID
+    // 2. Getform: https://getform.io/f/YOUR_FORM_ID
+    // 3. 自建 API: https://your-api.com/submit
+    const FORM_ENDPOINT = '';  // ← 填入你的 endpoint
+    // =================================
+
+    const form = document.getElementById('storyForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const configNotice = document.getElementById('configNotice');
+    const successState = document.getElementById('successState');
+    const submitTime = document.getElementById('submitTime');
+
+    // Show config notice if endpoint not set
+    if (!FORM_ENDPOINT) {
+        configNotice.classList.add('show');
+    }
+
+    // Stars
+    const stars = document.querySelectorAll('#stars .star');
+    const starLabel = document.getElementById('starLabel');
+    const ratingInput = document.getElementById('ratingInput');
+    const labels = ['', '还需要很多改进', '基本能用', '挺好的，日常在用', '很好用，离不开', '太棒了，逢人推荐'];
+
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            const val = parseInt(star.dataset.val);
+            stars.forEach(s => {
+                s.classList.toggle('active', parseInt(s.dataset.val) <= val);
+            });
+            starLabel.textContent = labels[val];
+            ratingInput.value = val;
+        });
+    });
+
+    // Consent checkbox
+    const consentBox = document.getElementById('consentBox');
+    const consentRealInput = document.getElementById('consentRealInput');
+    const consentLabel = document.getElementById('consentLabel');
+    consentLabel.addEventListener('click', (e) => {
+        // Don't toggle if clicking the real checkbox (it toggles itself)
+        if (e.target === consentRealInput) return;
+        consentRealInput.checked = !consentRealInput.checked;
+        consentBox.classList.toggle('checked', consentRealInput.checked);
+    });
+    consentRealInput.addEventListener('change', () => {
+        consentBox.classList.toggle('checked', consentRealInput.checked);
+    });
+
+    // Form submit
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Validation
+        if (!consentRealInput.checked) {
+            showError('请先勾选同意框，确认你愿意分享反馈内容。');
+            consentLabel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+
+        if (!FORM_ENDPOINT) {
+            showError('表单尚未配置接收端点。请先按照上方提示配置后端。');
+            configNotice.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+
+        // Collect data
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        // Add metadata
+        data.submitted_at = new Date().toISOString();
+        data.user_agent = navigator.userAgent;
+        data.page_url = window.location.href;
+
+        // Show loading
+        setLoading(true);
+        hideError();
+
+        try {
+            const response = await fetch(FORM_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                // Success
+                form.classList.add('hidden');
+                successState.classList.add('show');
+                submitTime.textContent = new Date().toLocaleString('zh-CN');
+                successState.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                const text = await response.text();
+                showError('提交失败（' + response.status + '）。请检查网络连接后重试，或直接联系 Jin。');
+                console.error('Submit error:', text);
+            }
+        } catch (err) {
+            showError('提交失败，可能是网络问题。请稍后重试，或直接联系 Jin。');
+            console.error('Submit error:', err);
+        } finally {
+            setLoading(false);
+        }
+    });
+
+    function setLoading(loading) {
+        submitBtn.disabled = loading;
+        submitBtn.classList.toggle('loading', loading);
+        const btnText = submitBtn.querySelector('.btn-text');
+        btnText.textContent = loading ? '提交' : '提交反馈';
+    }
+
+    function showError(msg) {
+        errorMsg.textContent = msg;
+        errorMsg.classList.add('show');
+    }
+
+    function hideError() {
+        errorMsg.classList.remove('show');
+    }
+</script>
+
+</body>
+</html>
